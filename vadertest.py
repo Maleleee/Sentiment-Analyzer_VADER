@@ -8,9 +8,9 @@ import csv
 nltk.download('vader_lexicon')
 
 # Reddit API credentials
-CLIENT_ID = 'dzq6IR-rrxodp6T7RK-6hw'
-CLIENT_SECRET = 'D-PKWOBJUiFOsjQLFTapR7Dcp33-tQ'
-USER_AGENT = 'Pyblob by Malele'
+CLIENT_ID = []
+CLIENT_SECRET = []
+USER_AGENT = []
 
 # Authenticate with Reddit
 reddit = praw.Reddit(
@@ -30,6 +30,8 @@ def clean_text(text):
     text = re.sub(r'http\S+', '', text)
     # Remove non-alphanumeric characters except for spaces, newlines, and quotes
     text = re.sub(r'[^a-zA-Z\s\n\'\"]', '', text)
+    # Remove extra whitespace
+    text = re.sub(r'\s+', ' ', text).strip()
     return text
 
 def preprocess_text(text):
@@ -80,7 +82,7 @@ def fetch_top_posts(subreddit_name, limit=100):
         
         comments = post.comments.list()
         # Filter out MoreComments objects and invalid comments
-        valid_comments = [comment for comment in comments if isinstance(comment, praw.models.Comment)]
+        valid_comments = [comment for comment in comments if isinstance(comment, praw.models.Comment) and comment.author and comment.author.name.lower() not in ['automoderator']]
         
         if not valid_comments:
             print(f"No valid comments found for post: {post.title}")
