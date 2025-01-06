@@ -5,8 +5,8 @@ import nltk
 import csv
 
 # Reddit API credentials
-CLIENT_ID = 'dzq6IR-rrxodp6T7RK-6hw'
-CLIENT_SECRET = 'D-PKWOBJUiFOsjQLFTapR7Dcp33-tQ'
+CLIENT_ID = '' # Insert your client ID here from REDDIT API
+CLIENT_SECRET = '' # Insert your client secret here from REDDIT API
 USER_AGENT = 'Sentiment Analyzer using VADER by Malele'
 
 # Authenticate with Reddit
