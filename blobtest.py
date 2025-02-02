@@ -9,9 +9,9 @@ import csv
 nltk.download('stopwords')
 
 # Reddit API credentials
-CLIENT_ID = 'dzq6IR-rrxodp6T7RK-6hw'
-CLIENT_SECRET = 'D-PKWOBJUiFOsjQLFTapR7Dcp33-tQ'
-USER_AGENT = 'Pyblob by Malele'
+CLIENT_ID = # Enter your client ID here
+CLIENT_SECRET = ## Enter client secret here
+USER_AGENT = ## This is just a description
 
 # Authenticate with Reddit
 reddit = praw.Reddit(
