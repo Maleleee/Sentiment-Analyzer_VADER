@@ -3,11 +3,19 @@ import re
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 import csv
+import os
+from dotenv import load_dotenv
 
-# Reddit API credentials
-CLIENT_ID = '' # Insert your client ID here from REDDIT API
-CLIENT_SECRET = '' # Insert your client secret here from REDDIT API
-USER_AGENT = 'Sentiment Analyzer using VADER by Malele'
+# Load environment variables
+load_dotenv()
+
+# Reddit API credentials from environment variables
+CLIENT_ID = os.getenv('REDDIT_CLIENT_ID')
+CLIENT_SECRET = os.getenv('REDDIT_CLIENT_SECRET')
+USER_AGENT = os.getenv('REDDIT_USER_AGENT')
+
+if not all([CLIENT_ID, CLIENT_SECRET, USER_AGENT]):
+    raise ValueError("Missing Reddit API credentials. Please check your .env file.")
 
 # Authenticate with Reddit
 reddit = praw.Reddit(
@@ -118,7 +126,7 @@ def analyze_sentiment_vader(text):
     else:
         return 0, compound
 
-def fetch_top_posts(subreddit_name, limit=100, min_comment_length=10):
+def fetch_top_posts(subreddit_name, limit=100, min_comment_length=10, progress_callback=None):
     """
     Enhanced post fetching with better error handling and logging.
     """
@@ -137,7 +145,10 @@ def fetch_top_posts(subreddit_name, limit=100, min_comment_length=10):
                     skipped_posts += 1
                     continue
                 
+                # Replace comments.list() with comments.replace_more(limit=0) for better performance
+                post.comments.replace_more(limit=0)
                 comments = post.comments.list()
+                
                 valid_comments = [
                     comment for comment in comments 
                     if isinstance(comment, praw.models.Comment) 
@@ -172,6 +183,8 @@ def fetch_top_posts(subreddit_name, limit=100, min_comment_length=10):
                         break  # Move to the next post after finding a valid comment
                 
                 processed_posts += 1
+                if progress_callback:
+                    progress_callback(processed_posts)
                 
             except Exception as e:
                 print(f"Error processing post {post.title}: {str(e)}")

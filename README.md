@@ -1,73 +1,86 @@
-## Sentiment Analysis for Reddit using VADER
+# Reddit Sentiment Analyzer
 
-# Overview
+A modern GUI application for analyzing sentiment in Reddit posts using VADER (Valence Aware Dictionary and sEntiment Reasoner) sentiment analysis.
 
-This repository provides a Python script for analyzing sentiments in Reddit comments using VADER (Valence Aware Dictionary and sEntiment Reasoner) sentiment analyzer. The script fetches the top posts from a specified subreddit, extracts the most upvoted 
-meaningful comment from eahc post, and determines the sentiment as positive, neutral, or negative. The results are saved to a CSV 
-file for further analysis.
+## Features
 
-# Features
+- Modern, user-friendly GUI interface
+- Real-time progress tracking
+- Sentiment analysis of Reddit posts and comments
+- Export results to CSV
+- Beautiful visualization of sentiment distribution
+- Support for any public subreddit
 
-* Reddit API Integration: Utilizes the PRAW library to fetch top posts and comments from Reddit.
-* Sentiment Analysis: Employs NLTK's VANDER sentiment analyzer to classify text sentiment and provide compound scores.
-* Text Cleaning and Preprocessing: Removes URLs, special characters, and extra whitspace while retaining meaningful content.
+## Installation
 
-# Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/Maleleee/PyBlob_Project.git
+cd PyBlob_Project
+```
 
-1. Clone the repository using
+2. Create and activate a virtual environment (recommended):
+```bash
+python -m venv venv
+# On Windows:
+.\venv\Scripts\activate
+# On Unix or MacOS:
+source venv/bin/activate
+```
 
-* git clone https://github.com/Maleleee/reddit-sentiment-analysis.git
-* cd reddit-sentiment-analysis
+3. Install the required packages:
+```bash
+pip install -r requirements.txt
+```
 
-2. Install the required libraries.
+4. Set up your Reddit API credentials:
+   - Go to https://www.reddit.com/prefs/apps
+   - Click "create another app..."
+   - Select "script"
+   - Fill in the required information
+   - Copy the client ID and client secret
+   - Create a `.env` file based on `.env.template`:
+     ```
+     REDDIT_CLIENT_ID=your_client_id_here
+     REDDIT_CLIENT_SECRET=your_client_secret_here
+     REDDIT_USER_AGENT=your_user_agent_here
+     ```
 
-* pip install praw nltk
+## Usage
 
-3. Download the necessary NLTK data files:
+1. Run the application:
+```bash
+python gui.py
+```
 
-* import nltk 
-* nltk.download ('vader_lexicon')
+2. Enter a subreddit name (without the "r/" prefix)
+3. Set the number of posts to analyze
+4. Click "Start Analysis"
+5. View the results in the application
+6. Export results to CSV if needed
 
-4. Configure your Reddit API credentials by replacing the placeholders in the script: 
+## Features
 
-CLIENT_ID = 'your_client_id'
-CLIENT_SECRET = 'your_client_secret'
-USER_AGENT = 'your_user_agent'
+- **Modern Interface**: Clean, intuitive design with real-time feedback
+- **Progress Tracking**: Visual progress bar and status updates
+- **Sentiment Analysis**: Uses VADER for accurate sentiment detection
+- **Data Export**: Export results to CSV for further analysis
+- **Error Handling**: Clear error messages and troubleshooting tips
 
+## Requirements
 
-# Usage
+- Python 3.8+
+- PyQt6
+- PRAW
+- NLTK
+- pandas
+- python-dotenv
 
-1. Set the Target Subreddit
+## Contributing
 
-Update the subreddit_name variable in the main() function to the subreddit you want to analyze:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-* subreddit_name = 'target_subreddit'
+## License
 
-2. Run the script
-
-Execute the script to fetch, process, and analyze Reddit data:
-
-* python enterscriptnamehere.py
-
-3. View the Results
-
-The analysis results will be saved in a CSV file named sentiment_analysis_results_VADER.csv, which includes the ff:
-
-* Post title
-* Post URL
-* Post upvotes
-* Comment text
-* Comment upvotes
-* Sentiment classification (Positive, Neutral, Negative)
-* Compound sentiment score
-
-## Dependencies
-
-* Python 3.8+
-* PRAW
-* NLTK
-
-## Contributions 
-
-Contributions, issues, and feature requests are welcome! Feel free to fork this repository and submit a pull request.
+This project is licensed under the MIT License - see the LICENSE file for details.
 

@@ -1,0 +1,6 @@
+praw
+nltk
+PyQt6
+numpy==1.23.5
+pandas==1.5.3
+python-dotenv 
